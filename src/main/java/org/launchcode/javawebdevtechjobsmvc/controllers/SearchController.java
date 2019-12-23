@@ -17,12 +17,18 @@ import static org.launchcode.javawebdevtechjobsmvc.controllers.ListController.co
 @RequestMapping("search")
 public class SearchController {
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "/search/results")
     public String search(Model model) {
         model.addAttribute("columns", columnChoices);
         return "search";
     }
 
     // TODO #3 - Create a handler to process a search request and render the updated search view.
+    @RequestMapping("search/results")
+    public String displaySearchResults(Model model) {
+        model.addAttribute("searchType", "searchTerm");
+        return "search/results";
+    }
+
 
 }
