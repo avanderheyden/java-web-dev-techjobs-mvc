@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import static org.launchcode.javawebdevtechjobsmvc.controllers.ListController.columnChoices;
 import static org.launchcode.javawebdevtechjobsmvc.controllers.ListController.tableChoices;
+import static org.launchcode.javawebdevtechjobsmvc.models.JobData.findByValue;
 
 /**
  * Created by LaunchCode
@@ -35,11 +36,11 @@ public class SearchController {
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
         ArrayList<Job> jobs;
         if (searchType.toLowerCase().equals("all")) {
-            jobs = JobData.findAll();
+            jobs = JobData.findByValue(searchTerm.toLowerCase());
             model.addAttribute("title", "All Jobs");
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
-            model.addAttribute("title", "Jobs with " + tableChoices.get(searchType) + ": " + searchTerm);
+            model.addAttribute("title", "Jobs with " + searchType + ": " + searchTerm);
         }
         model.addAttribute("jobs", jobs);
         model.addAttribute("columns", columnChoices);
